@@ -60,9 +60,9 @@ void loop()   /****** LOOP: RUNS CONSTANTLY ******/
     {
       // Fetch the data payload
       radio.read( joystick, sizeof(joystick) );
-      if (joystick[0] - 2*receiverNum == 0)
+      if ((joystick[0] - 2*receiverNum) == 0)
         digitalWrite(ledPin, LOW);
-      else if (joystick[0] - 2*receiverNum == 1)
+      else if ((joystick[0] - 2*receiverNum) == 1)
         digitalWrite(ledPin, HIGH);
       Serial.println(joystick[0]);
     }

@@ -54,7 +54,7 @@ void setup()   /****** SETUP: RUNS ONCE ******/
 
 void loop()   /****** LOOP: RUNS CONSTANTLY ******/
 {
-  currentButton1 = debounce(lastButton1, pushpin1);
+  currentButton1 = debounce(lastButton1, pushPin1);
   if (lastButton1 == LOW && currentButton1 == HIGH)
   {
     ledOn1 = !ledOn1;
@@ -66,14 +66,14 @@ void loop()   /****** LOOP: RUNS CONSTANTLY ******/
   radio.write( joystick, sizeof(joystick) );
   Serial.print(joystick[0]);
   
-  currentButton2 = debounce(lastButton2, pushpin2);
+  currentButton2 = debounce(lastButton2, pushPin2);
   if (lastButton2 == LOW && currentButton2 == HIGH)
   {
     ledOn2 = !ledOn2;
   }
   lastButton2 = currentButton2;
   
-  if (ledOn1) joystick[0] = 2;
+  if (ledOn2) joystick[0] = 2;
   else joystick[0] = 3;
   radio.write( joystick, sizeof(joystick) );
   Serial.print(joystick[0]);
