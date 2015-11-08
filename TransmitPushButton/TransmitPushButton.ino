@@ -33,36 +33,54 @@ const uint64_t pipe = 0xE8E8F0F0E1LL; // Define the transmit pipe
 RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
 /*-----( Declare Variables )-----*/
 int joystick[1];  // 2 element array holding Joystick readings
-int pushPin = 2;
-bool lastButton = LOW;
-bool currentButton = LOW;
-bool ledOn = false;
+int pushPin1 = 2;
+int pushPin2 = 3;
+bool lastButton1 = LOW;
+bool currentButton1 = LOW;
+bool lastButton2 = LOW;
+bool currentButton2 = LOW;
+bool ledOn1 = false;
+bool ledOn2 = false;
 
 void setup()   /****** SETUP: RUNS ONCE ******/
 {
   Serial.begin(9600);
   radio.begin();
   radio.openWritingPipe(pipe);
-  pinMode(pushPin, INPUT);
+  pinMode(pushPin1, INPUT);
+  pinMode(pushPin2, INPUT);
 }//--(end setup )---
 
 
 void loop()   /****** LOOP: RUNS CONSTANTLY ******/
 {
-  currentButton = debounce(lastButton);
-  if (lastButton == LOW && currentButton == HIGH)
+  currentButton1 = debounce(lastButton1, pushpin1);
+  if (lastButton1 == LOW && currentButton1 == HIGH)
   {
-    ledOn = !ledOn;
+    ledOn1 = !ledOn1;
   }
-  lastButton = currentButton;
-  if (ledOn) joystick[0] = 0;
+  lastButton1 = currentButton1;
+  
+  if (ledOn1) joystick[0] = 0;
   else joystick[0] = 1;
+  radio.write( joystick, sizeof(joystick) );
+  Serial.print(joystick[0]);
+  
+  currentButton2 = debounce(lastButton2, pushpin2);
+  if (lastButton2 == LOW && currentButton2 == HIGH)
+  {
+    ledOn2 = !ledOn2;
+  }
+  lastButton2 = currentButton2;
+  
+  if (ledOn1) joystick[0] = 2;
+  else joystick[0] = 3;
   radio.write( joystick, sizeof(joystick) );
   Serial.print(joystick[0]);
 }//--(end main loop )---
 
 /***** Debounce makes push button readings not bounce *****/
-boolean debounce(boolean last)
+boolean debounce(boolean last, int pushPin)
 {
   boolean current = digitalRead(pushPin);
   if (last != current)

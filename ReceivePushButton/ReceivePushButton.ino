@@ -36,6 +36,7 @@ RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
 /*-----( Declare Variables )-----*/
 int joystick[1];  // 2 element array holding Joystick readings
 int ledPin = 2;
+int receiverNum = 0;
 
 void setup()   /****** SETUP: RUNS ONCE ******/
 {
@@ -59,9 +60,9 @@ void loop()   /****** LOOP: RUNS CONSTANTLY ******/
     {
       // Fetch the data payload
       radio.read( joystick, sizeof(joystick) );
-      if (joystick[0] == 0)
+      if (joystick[0] - 2*receiverNum == 0)
         digitalWrite(ledPin, LOW);
-      else
+      else if (joystick[0] - 2*receiverNum == 1)
         digitalWrite(ledPin, HIGH);
       Serial.println(joystick[0]);
     }
