@@ -55,10 +55,11 @@ void setup()   /****** SETUP: RUNS ONCE ******/
 void loop()   /****** LOOP: RUNS CONSTANTLY ******/
 {
   currentButton1 = debounce(lastButton1, pushPin1);
-  if (lastButton1 == LOW && currentButton1 == HIGH)
-  {
-    ledOn1 = !ledOn1;
-  }
+//  if (lastButton1 == LOW && currentButton1 == HIGH)
+//  {
+//    ledOn1 = !ledOn1;
+//  }
+  ledOn1 = !currentButton1;
   lastButton1 = currentButton1;
   
   if (ledOn1) joystick[0] = 0;
@@ -67,10 +68,11 @@ void loop()   /****** LOOP: RUNS CONSTANTLY ******/
   Serial.print(joystick[0]);
   
   currentButton2 = debounce(lastButton2, pushPin2);
-  if (lastButton2 == LOW && currentButton2 == HIGH)
-  {
-    ledOn2 = !ledOn2;
-  }
+//  if (lastButton2 == LOW && currentButton2 == HIGH)
+//  {
+//    ledOn2 = !ledOn2;
+//  }
+  ledOn2 = currentButton2;
   lastButton2 = currentButton2;
   
   if (ledOn2) joystick[0] = 2;
